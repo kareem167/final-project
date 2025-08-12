@@ -2,6 +2,9 @@
 <html>
   <head> 
    @include('admin.css')
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   </head>
   <body>
     @include('admin.header')
@@ -18,6 +21,24 @@
             padding: 30px;
             color: white;
          }
+  .Center {
+        margin: auto;
+        width: 50%;
+        text-align: Center;
+        margin-top: 50px;
+        border: 1px solid white;
+    }
+
+    th {
+        background-color: SkyBlue;
+        padding: 10px;
+    }
+
+    tr {
+        border: 1px solid white;
+        padding: 10px;
+    }
+
     </style>
    
    
@@ -53,12 +74,58 @@
             </span>
             <input class="btn btn-primary" type="submit" value="Add Category ">
         </form>
-            </div>
+      <div>
+    <table class="Center">
+        <tr>
+            <th>Category Name</th>
+            <th> Action </th>
+
+        </tr>
+        @foreach ($data as $data)
+        <tr>
+            <td>{{$data->cat_title}}</td>
+         <td>
+
+         <a class="btn btn-info" href="{{ URL('edit_category', $data->id) }}" >Update</a>     
+
+          <a onclick="confirmation(event)"
+           class="btn btn-danger"href="{{URL('cat_delete', $data->id)}}">Delete</a>
+        </td>
+
+        </tr>
+        @endforeach
+    </table>
+</div>
+      
+      </div>
+
           </div>
         </div>
        </div>
    
       @include('admin.footer')
+
+      <script type="text/Javascript">
+
+function confirmation(ev) { 
+          ev.preventDefault(); 
+          var urlToRedirect = ev.currentTarget.getAttribute('href'); 
+        console.log(urlToRedirect);       
+         swal({ 
+        title: "Are you sure to Delete this", 
+        text: "You will not be able to revert this!", 
+        icon: "warning",
+        buttons: true, 
+        dangerMode: true, 
+        })
+      .then((willCancel) => { 
+        if (willCancel) { 
+          window.location.href= urlToRedirect; 
+        }
+      });
+    }
+
+<\script>
         
   </body>
 </html>
