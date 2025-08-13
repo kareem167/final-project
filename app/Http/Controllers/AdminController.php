@@ -74,4 +74,10 @@ public function update_category(Request $request, $id)
     return redirect('/category_page')->with('message', 'Category updated successfully'); 
 }
 
+
+public function add_book()
+{
+    $data=category::all();
+    return view('admin.add_book',compact('data'));
+}
 }
